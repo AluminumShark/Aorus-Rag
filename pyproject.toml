@@ -1,0 +1,21 @@
+[project]
+name = "aorus-rag"
+version = "0.1.0"
+description = "RAG-based product spec Q&A for GIGABYTE AORUS MASTER 16 AM6H"
+requires-python = ">=3.11"
+dependencies = [
+    "llama-cpp-python>=0.3.0",
+    "sentence-transformers>=3.0.0",
+    "faiss-cpu>=1.9.0",
+    "beautifulsoup4>=4.12.0",
+    "requests>=2.31.0",
+    "playwright>=1.40.0",
+    "numpy>=1.26.0",
+]
+
+[[tool.uv.index]]
+name = "llama-cpp-python-cpu"
+url = "https://abetlen.github.io/llama-cpp-python/whl/cpu"
+
+[tool.uv.sources]
+llama-cpp-python = { index = "llama-cpp-python-cpu" }
