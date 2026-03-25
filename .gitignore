@@ -2,6 +2,7 @@
 CLAUDE.md
 models/
 data/
+output/
 .claude/
 
 # Python
