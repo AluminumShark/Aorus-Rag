@@ -1,7 +1,6 @@
 """Interactive Q&A REPL and evaluation runner."""
 
 import argparse
-import sys
 
 from src.pipeline import load_pipeline, query
 
@@ -38,6 +37,7 @@ def main() -> None:
 
     if args.evaluate:
         from src.evaluate import run_evaluation
+
         run_evaluation(pipe)
     else:
         repl(pipe)

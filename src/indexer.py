@@ -14,13 +14,15 @@ def build_index(vectors: np.ndarray) -> faiss.IndexFlatIP:
     """Build a FAISS inner-product index from normalized vectors."""
     dim = vectors.shape[1]  # 384
     index = faiss.IndexFlatIP(dim)
-    index.add(vectors)
+    index.add(vectors)  # ty: ignore[missing-argument]  # faiss SWIG stub mismatch
     return index
 
 
-def search(index: faiss.IndexFlatIP, query_vec: np.ndarray, top_k: int = 3) -> tuple[list[float], list[int]]:
+def search(
+    index: faiss.IndexFlatIP, query_vec: np.ndarray, top_k: int = 3
+) -> tuple[list[float], list[int]]:
     """Search the index and return (scores, indices) for top-k results."""
-    scores, indices = index.search(query_vec.reshape(1, -1), top_k)
+    scores, indices = index.search(query_vec.reshape(1, -1), top_k)  # ty: ignore[missing-argument]  # faiss SWIG stub mismatch
     return scores[0].tolist(), indices[0].tolist()
 
 
@@ -55,5 +57,3 @@ if __name__ == "__main__":
     # Quick test: search with first chunk as query
     scores, indices = search(index, vectors[0])
     print(f"Test search — top match: chunk {indices[0]}, score {scores[0]:.4f}")
-
-

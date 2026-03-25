@@ -58,18 +58,20 @@ def parse_specs(html: str) -> dict[str, dict[str, str]]:
 
     wrapper = soup.find("div", class_="multiple-spec-content-wrapper")
     if not wrapper:
-        raise ValueError("Could not find multiple-spec-content-wrapper. Page structure may have changed.")
+        raise ValueError(
+            "Could not find multiple-spec-content-wrapper. Page structure may have changed."
+        )
 
     # Extract category names from spec-column
     spec_col = wrapper.find("div", class_="spec-column")
     categories = [
         t.get_text(strip=True)
-        for t in spec_col.find_all("div", class_="multiple-title")
+        for t in spec_col.find_all("div", class_="multiple-title")  # ty: ignore[unresolved-attribute]
     ]
 
     # Extract values for each model variant from swiper slides
     content_col = wrapper.find("div", class_="content-column")
-    slides = content_col.find_all("div", class_="swiper-slide")
+    slides = content_col.find_all("div", class_="swiper-slide")  # ty: ignore[unresolved-attribute]
 
     all_specs: dict[str, dict[str, str]] = {}
     for i, slide in enumerate(slides):
@@ -96,7 +98,9 @@ def save_raw_html(html: str, filename: str = "spec_page.html") -> Path:
     return path
 
 
-def save_specs_json(specs: dict[str, dict[str, str]], filename: str = "specs.json") -> Path:
+def save_specs_json(
+    specs: dict[str, dict[str, str]], filename: str = "specs.json"
+) -> Path:
     """Save parsed specs dict to data/raw/ as JSON."""
     RAW_DIR.mkdir(parents=True, exist_ok=True)
     path = RAW_DIR / filename

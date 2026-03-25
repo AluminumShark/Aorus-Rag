@@ -36,12 +36,16 @@ SYSTEM_PROMPT_EN = (
     "Keep answers concise (1-3 sentences)."
 )
 
+
 def _has_cuda() -> bool:
     """Check if CUDA GPU is available (for Linux/Colab)."""
     try:
         import subprocess
+
         result = subprocess.run(
-            ["nvidia-smi"], capture_output=True, timeout=5,
+            ["nvidia-smi"],
+            capture_output=True,
+            timeout=5,
         )
         return result.returncode == 0
     except (FileNotFoundError, subprocess.TimeoutExpired):
@@ -58,10 +62,11 @@ def _default_gpu_layers() -> int:
     return 0
 
 
-def load_llm(filename: str = "Qwen3.5-4B-Q4_K_M.gguf",
-             n_ctx: int = 2048,
-             n_gpu_layers: int | None = None,
-             ) -> Llama:
+def load_llm(
+    filename: str = "Qwen3.5-4B-Q4_K_M.gguf",
+    n_ctx: int = 2048,
+    n_gpu_layers: int | None = None,
+) -> Llama:
     """Load a GGUF model with llama.cpp."""
     if n_gpu_layers is None:
         n_gpu_layers = _default_gpu_layers()
@@ -76,8 +81,7 @@ def load_llm(filename: str = "Qwen3.5-4B-Q4_K_M.gguf",
     )
 
 
-def generate(llm: Llama, context: str, query: str,
-             lang: str = "zh") -> Iterator[str]:
+def generate(llm: Llama, context: str, query: str, lang: str = "zh") -> Iterator[str]:
     """Stream answer from the LLM using chat completion.
 
     Uses create_chat_completion so the model receives proper ChatML
@@ -97,13 +101,13 @@ def generate(llm: Llama, context: str, query: str,
 
     in_think = False
     for chunk in llm.create_chat_completion(
-        messages=messages,
+        messages=messages,  # ty: ignore[invalid-argument-type]  # plain dict works at runtime
         max_tokens=512,
         temperature=0.3,
         repeat_penalty=1.2,
         stream=True,
     ):
-        delta = chunk["choices"][0].get("delta", {})
+        delta = chunk["choices"][0].get("delta", {})  # ty: ignore[invalid-argument-type]  # streaming chunk type
         token = delta.get("content", "")
         if not token:
             continue
