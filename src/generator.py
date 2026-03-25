@@ -53,11 +53,11 @@ def _has_cuda() -> bool:
 
 
 def _default_gpu_layers() -> int:
-    """Auto-detect GPU: Mac Metal → -1, Linux CUDA → -1, else → 0 (CPU)."""
+    """Auto-detect GPU: Mac Metal → -1, CUDA (Linux/Windows) → -1, else → 0."""
     system = platform.system()
     if system == "Darwin":
         return -1
-    if system == "Linux" and _has_cuda():
+    if _has_cuda():
         return -1
     return 0
 

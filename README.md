@@ -9,7 +9,10 @@
 ### 1. 安裝依賴（含從原始碼編譯 llama-cpp-python）
 
 ```bash
-# Windows (Git Bash)
+# Windows + CUDA GPU (Git Bash)
+chcp.com 65001 && MSYS_NO_PATHCONV=1 CMAKE_ARGS="-DCMAKE_CXX_FLAGS=/utf-8 -DCMAKE_C_FLAGS=/utf-8 -DLLAMA_CUDA=on" uv sync
+
+# Windows CPU only (Git Bash)
 chcp.com 65001 && MSYS_NO_PATHCONV=1 CMAKE_ARGS="-DCMAKE_CXX_FLAGS=/utf-8 -DCMAKE_C_FLAGS=/utf-8" uv sync
 
 # macOS (Metal GPU 加速)
