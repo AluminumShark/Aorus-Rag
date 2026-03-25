@@ -1,9 +1,9 @@
 # Project-specific
 CLAUDE.md
 models/
-data/
 output/
 .claude/
+data/processed/test.index
 
 # Python
 __pycache__/
