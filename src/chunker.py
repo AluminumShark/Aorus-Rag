@@ -8,6 +8,34 @@ from pathlib import Path
 
 PROCESSED_DIR = Path(__file__).resolve().parent.parent / "data" / "processed"
 
+# Bilingual aliases so Chinese queries match English category names in embedding space.
+CATEGORY_ALIASES: dict[str, str] = {
+    "OS": "作業系統",
+    "CPU": "處理器",
+    "Video Graphics": "顯示卡/顯卡/GPU",
+    "Display": "螢幕/顯示器",
+    "System Memory": "記憶體/RAM",
+    "Storage": "儲存/硬碟/SSD",
+    "Keyboard Type": "鍵盤",
+    "I/O Port": "連接埠/接口",
+    "Audio": "音效/喇叭",
+    "Communications": "網路/WiFi/藍牙",
+    "Webcam": "視訊鏡頭",
+    "Security": "安全性",
+    "Battery": "電池",
+    "Adapter": "電源供應器/充電器",
+    "Dimensions (W x D x H)": "尺寸/機身大小",
+    "Weight": "重量",
+    "Color": "顏色",
+}
+
+
+def _label(category: str) -> str:
+    """Return 'Category (中文別名)' if alias exists, else just the category."""
+    alias = CATEGORY_ALIASES.get(category)
+    return f"{category} ({alias})" if alias else category
+
+
 def _clean_value(value: str) -> str:
     """Replace newlines with ', ' for a cleaner single-line format."""
     return ", ".join(line.strip() for line in value.split("\n") if line.strip())
@@ -38,13 +66,13 @@ def create_chunks(all_specs: dict[str, dict[str, str]]) -> list[dict[str, str]]:
             models_str = "/".join(
                 name.split()[-1] for name in model_names  # "BZH/BYH/BXH"
             )
-            text = f"{category} (shared by {models_str}): {clean}"
+            text = f"{_label(category)} (shared by {models_str}): {clean}"
             chunks.append({"category": category, "text": text})
         else:
             # Values differ — one chunk per model, with model prefix
             for model_name in model_names:
                 clean = _clean_value(values[model_name])
-                text = f"[{model_name}] {category}: {clean}"
+                text = f"[{model_name}] {_label(category)}: {clean}"
                 chunks.append({
                     "model": model_name,
                     "category": category,
