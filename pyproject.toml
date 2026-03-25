@@ -11,11 +11,16 @@ dependencies = [
     "requests>=2.31.0",
     "playwright>=1.40.0",
     "numpy>=1.26.0",
+    "matplotlib>=3.8.0",
 ]
 
-[[tool.uv.index]]
-name = "llama-cpp-python-cpu"
-url = "https://abetlen.github.io/llama-cpp-python/whl/cpu"
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.15.7",
+    "ty>=0.0.25",
+]
 
-[tool.uv.sources]
-llama-cpp-python = { index = "llama-cpp-python-cpu" }
+[tool.pytest.ini_options]
+pythonpath = ["."]
+markers = ["slow: tests that load the embedding model (skip with -m 'not slow')"]
