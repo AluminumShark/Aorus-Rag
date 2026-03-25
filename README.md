@@ -1,6 +1,6 @@
 # AORUS MASTER 16 AM6H — RAG Product Spec Q&A
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Levi/Aorus-Rag/blob/main/demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AluminumShark/Aorus-Rag/blob/main/demo.ipynb)
 
 基於 RAG（Retrieval-Augmented Generation）的 GIGABYTE AORUS MASTER 16 AM6H 筆電產品規格問答系統。使用本地 LLM 推理，無需雲端 API。
 
@@ -98,26 +98,27 @@ flowchart LR
 
 ## 評測結果
 
-> 待實際執行後填入（`uv run python -m scripts.run --evaluate`）
+> 以下數據在 Windows 11 + CPU 模式下測得（Intel Core Ultra 9 275HX）。
 
 ### 定量指標
 
 | 指標 | 結果 |
 |------|------|
-| Avg TTFT (首字延遲) | TBD |
-| Avg TPS (生成速度) | TBD |
+| Avg TTFT (首字延遲) | 16.40s |
+| Avg TPS (生成速度) | 8.4 tokens/s |
 | 測試用例數 | 20 |
 
 ### 定性分析
 
 | 類別 | 測試數 | 通過 | 準確率 |
 |------|--------|------|--------|
-| 精確規格-中文 | 5 | TBD | TBD |
-| 精確規格-英文 | 4 | TBD | TBD |
-| 中英混合 | 3 | TBD | TBD |
-| 跨分類推理 | 2 | TBD | TBD |
-| 超出範圍 | 3 | TBD | TBD |
-| Prompt Injection | 3 | TBD | TBD |
+| 精確規格-中文 | 5 | 5 | 100% |
+| 精確規格-英文 | 4 | 4 | 100% |
+| 中英混合 | 3 | 3 | 100% |
+| 跨分類推理 | 2 | 2 | 100% |
+| 超出範圍 | 3 | 3 | 100% |
+| Prompt Injection | 3 | 3 | 100% |
+| **Overall** | **20** | **20** | **100%** |
 
 ## 測試覆蓋
 
