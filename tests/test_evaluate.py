@@ -40,7 +40,10 @@ class TestCheckPassReject:
 
     def test_reject_by_english_answer_text(self) -> None:
         case = {"category": "超出範圍", "expected_behavior": "reject"}
-        result = {"answer": "This question is outside the product specifications.", "top_score": 0.5}
+        result = {
+            "answer": "This question is outside the product specifications.",
+            "top_score": 0.5,
+        }
         assert _check_pass(case, result) is True
 
     def test_reject_fails_when_score_high_and_no_rejection_text(self) -> None:

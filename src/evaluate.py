@@ -124,7 +124,7 @@ def run_evaluation(pipe: dict) -> None:
         cats[r["case"]["category"]].append(r)
 
     print(f"  {'Category':<20} {'Total':>5} {'Pass':>5} {'Accuracy':>8}")
-    print(f"  {'-'*20} {'-'*5} {'-'*5} {'-'*8}")
+    print(f"  {'-' * 20} {'-' * 5} {'-' * 5} {'-' * 8}")
 
     total_pass = 0
     total_count = 0
@@ -136,7 +136,7 @@ def run_evaluation(pipe: dict) -> None:
         pct = p / n * 100 if n else 0
         print(f"  {cat:<20} {n:>5} {p:>5} {pct:>7.0f}%")
 
-    print(f"  {'-'*20} {'-'*5} {'-'*5} {'-'*8}")
+    print(f"  {'-' * 20} {'-' * 5} {'-' * 5} {'-' * 8}")
     overall = total_pass / total_count * 100 if total_count else 0
     print(f"  {'Overall':<20} {total_count:>5} {total_pass:>5} {overall:>7.0f}%")
     print("=" * 100)

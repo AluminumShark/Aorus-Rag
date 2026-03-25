@@ -14,8 +14,9 @@ def load_model() -> SentenceTransformer:
     return SentenceTransformer(MODEL_NAME)
 
 
-def encode(model: SentenceTransformer, texts: list[str],
-           is_query: bool = False) -> np.ndarray:
+def encode(
+    model: SentenceTransformer, texts: list[str], is_query: bool = False
+) -> np.ndarray:
     """Encode texts into L2-normalized vectors.
 
     The e5 model family requires "query: " or "passage: " prefixes.
@@ -28,6 +29,7 @@ def encode(model: SentenceTransformer, texts: list[str],
     vectors = model.encode(prefixed, show_progress_bar=False)
     norms = np.linalg.norm(vectors, axis=1, keepdims=True)
     return (vectors / norms).astype(np.float32)
+
 
 if __name__ == "__main__":
     from src.chunker import load_chunks

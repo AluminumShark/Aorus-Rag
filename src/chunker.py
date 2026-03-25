@@ -1,4 +1,3 @@
-
 """Split parsed specs into chunks for embedding and retrieval."""
 
 from __future__ import annotations
@@ -64,7 +63,8 @@ def create_chunks(all_specs: dict[str, dict[str, str]]) -> list[dict[str, str]]:
             # All models share the same value — one chunk with shared note
             clean = _clean_value(next(iter(unique_values)))
             models_str = "/".join(
-                name.split()[-1] for name in model_names  # "BZH/BYH/BXH"
+                name.split()[-1]
+                for name in model_names  # "BZH/BYH/BXH"
             )
             text = f"{_label(category)} (shared by {models_str}): {clean}"
             chunks.append({"category": category, "text": text})
@@ -73,12 +73,15 @@ def create_chunks(all_specs: dict[str, dict[str, str]]) -> list[dict[str, str]]:
             for model_name in model_names:
                 clean = _clean_value(values[model_name])
                 text = f"[{model_name}] {_label(category)}: {clean}"
-                chunks.append({
-                    "model": model_name,
-                    "category": category,
-                    "text": text,
-                })
+                chunks.append(
+                    {
+                        "model": model_name,
+                        "category": category,
+                        "text": text,
+                    }
+                )
     return chunks
+
 
 def save_chunks(chunks: list[dict[str, str]], filename: str = "chunks.json") -> Path:
     """Save chunks to data/processed/ as JSON."""
@@ -92,6 +95,7 @@ def load_chunks(filename: str = "chunks.json") -> list[dict[str, str]]:
     """Load previously saved chunks."""
     path = PROCESSED_DIR / filename
     return json.loads(path.read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     from src.scraper import load_specs_json

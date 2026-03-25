@@ -15,11 +15,11 @@ class TestQuery:
         return {"model": None, "index": None, "chunks": chunks, "llm": None}
 
     @patch("src.pipeline.generate", return_value=iter(["token1", "token2"]))
-    @patch("src.pipeline.search", return_value=([0.8, 0.5, 0.4, 0.3, 0.2], [0, 1, 2, 3, 4]))
+    @patch(
+        "src.pipeline.search", return_value=([0.8, 0.5, 0.4, 0.3, 0.2], [0, 1, 2, 3, 4])
+    )
     @patch("src.pipeline.encode", return_value=[[0.1] * 384])
-    def test_returns_iterator(
-        self, mock_encode, mock_search, mock_generate
-    ) -> None:
+    def test_returns_iterator(self, mock_encode, mock_search, mock_generate) -> None:
         chunks = [{"text": f"chunk{i}"} for i in range(5)]
         pipe = self._make_pipe(chunks)
         tokens = list(query(pipe, "test query"))
@@ -37,7 +37,9 @@ class TestQuery:
         mock_encode.assert_called_once_with(None, ["test"], is_query=True)
 
     @patch("src.pipeline.generate", return_value=iter(["ans"]))
-    @patch("src.pipeline.search", return_value=([0.9, 0.7, 0.5, 0.4, 0.3], [2, 0, 1, 3, 4]))
+    @patch(
+        "src.pipeline.search", return_value=([0.9, 0.7, 0.5, 0.4, 0.3], [2, 0, 1, 3, 4])
+    )
     @patch("src.pipeline.encode", return_value=[[0.1] * 384])
     def test_context_joins_correct_chunks(
         self, mock_encode, mock_search, mock_generate
@@ -58,7 +60,9 @@ class TestQuery:
         assert call_args[1]["lang"] == "en"
 
     @patch("src.pipeline.generate", return_value=iter(["response"]))
-    @patch("src.pipeline.search", return_value=([0.5, 0.4, 0.3, 0.2, 0.1], [0, 1, 2, 3, 4]))
+    @patch(
+        "src.pipeline.search", return_value=([0.5, 0.4, 0.3, 0.2, 0.1], [0, 1, 2, 3, 4])
+    )
     @patch("src.pipeline.encode", return_value=[[0.1] * 384])
     def test_empty_query_still_works(
         self, mock_encode, mock_search, mock_generate

@@ -9,14 +9,10 @@ from src.scraper import parse_specs
 
 def _build_html(categories: list[str], slides: list[list[str]]) -> str:
     """Build minimal HTML that mimics the GIGABYTE spec page structure."""
-    titles = "\n".join(
-        f'<div class="multiple-title">{cat}</div>' for cat in categories
-    )
+    titles = "\n".join(f'<div class="multiple-title">{cat}</div>' for cat in categories)
     slide_divs = []
     for values in slides:
-        items = "\n".join(
-            f'<div class="spec-item-list">{v}</div>' for v in values
-        )
+        items = "\n".join(f'<div class="spec-item-list">{v}</div>' for v in values)
         slide_divs.append(f'<div class="swiper-slide">{items}</div>')
 
     return f"""

@@ -58,7 +58,7 @@ class TestThinkTagFiltering:
 
     @pytest.mark.xfail(
         reason="Known bug: <think> and </think> in same token — "
-               "continue on <think> match skips closing tag check",
+        "continue on <think> match skips closing tag check",
         strict=True,
     )
     def test_think_open_close_same_token(self) -> None:

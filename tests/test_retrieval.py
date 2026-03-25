@@ -18,7 +18,9 @@ from src.chunker import load_chunks
 from src.embedder import load_model, encode
 from src.indexer import build_index, search
 
-CHUNKS_PATH = Path(__file__).resolve().parent.parent / "data" / "processed" / "chunks.json"
+CHUNKS_PATH = (
+    Path(__file__).resolve().parent.parent / "data" / "processed" / "chunks.json"
+)
 
 pytestmark = pytest.mark.slow
 
@@ -47,7 +49,8 @@ def _search_chunks(env: dict, query: str, top_k: int = 5) -> list[dict]:
 def _gpu_chunk_models(results: list[dict]) -> set[str]:
     """Extract model names from Video Graphics chunks in results."""
     return {
-        c["model"] for c in results
+        c["model"]
+        for c in results
         if c.get("category") == "Video Graphics" and "model" in c
     }
 
