@@ -4,8 +4,6 @@
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AluminumShark/Aorus-Rag/blob/main/demo.ipynb) ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white) ![uv](https://img.shields.io/badge/uv-package%20manager-blueviolet?logo=uv) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) ![ty](https://img.shields.io/badge/ty-type%20checker-orange) ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
-基於 RAG（Retrieval-Augmented Generation）的 GIGABYTE AORUS MASTER 16 AM6H 筆電產品規格問答系統。使用本地 LLM 推理，無需雲端 API。
-
 ## Quick Start
 
 ### 1. 安裝依賴（含從原始碼編譯 llama-cpp-python）
