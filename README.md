@@ -1,5 +1,7 @@
 # AORUS MASTER 16 AM6H — RAG Product Spec Q&A
 
+> 基於 RAG 的 GIGABYTE AORUS MASTER 16 AM6H 產品規格問答系統 — 純 Python 實作、llama.cpp 本地推理、4 GB VRAM 即可運行。
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AluminumShark/Aorus-Rag/blob/main/demo.ipynb) ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white) ![uv](https://img.shields.io/badge/uv-package%20manager-blueviolet?logo=uv) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) ![ty](https://img.shields.io/badge/ty-type%20checker-orange) ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 基於 RAG（Retrieval-Augmented Generation）的 GIGABYTE AORUS MASTER 16 AM6H 筆電產品規格問答系統。使用本地 LLM 推理，無需雲端 API。
@@ -57,6 +59,10 @@ flowchart TD
     G --> F["Think Filter<br/>strip ‹think›"]
     F --> A(["Streaming Answer"])
 ```
+
+#### 串流輸出（Streaming）
+
+生成階段使用 `create_chat_completion(stream=True)` 逐 token 產出回答，不需等整段生成完畢。`scripts/run.py` 透過 `sys.stdout.write` + `flush` 即時印出每個 token，使用者在 TTFT（~0.43s on T4）後即可看到文字逐字出現，體感接近即時對話。
 
 ### Data Pipeline（離線建索引）
 
