@@ -1,6 +1,6 @@
 # AORUS MASTER 16 AM6H — RAG Product Spec Q&A
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AluminumShark/Aorus-Rag/blob/main/demo.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/AluminumShark/Aorus-Rag/blob/main/demo.ipynb) ![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white) ![uv](https://img.shields.io/badge/uv-package%20manager-blueviolet?logo=uv) [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff) ![ty](https://img.shields.io/badge/ty-type%20checker-orange) ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 基於 RAG（Retrieval-Augmented Generation）的 GIGABYTE AORUS MASTER 16 AM6H 筆電產品規格問答系統。使用本地 LLM 推理，無需雲端 API。
 
@@ -124,16 +124,16 @@ flowchart LR
 
 ## 測試覆蓋
 
-共 50 tests（49 passed + 1 xfail）：
+共 58 tests（57 passed + 1 xfail）：
 
 | 測試檔案 | 測試數 | 測試內容 |
 |----------|--------|----------|
-| `test_chunker.py` | 11 | 去重切分邏輯、clean_value 邊界 |
+| `test_chunker.py` | 13 | 去重切分邏輯、clean_value 邊界 |
 | `test_scraper.py` | 4 | HTML 解析、錯誤處理 |
 | `test_indexer.py` | 8 | FAISS build/search/save/load + edge cases |
-| `test_pipeline.py` | 10 | context 組裝、語言偵測、low score 仍 generate |
+| `test_pipeline.py` | 11 | context 組裝、語言偵測、low score 仍 generate |
 | `test_generator.py` | 7 | `<think>` tag 過濾 + 真實 token pattern（含 xfail 已知 bug） |
-| `test_evaluate.py` | 9 | _check_pass keyword/reject/injection 邏輯 |
+| `test_evaluate.py` | 10 | _check_pass keyword/reject/injection 邏輯 |
 | `test_retrieval.py` | 5 | **檢索品質**：GPU 3-model 全撈、跨語言檢索 |
 
 > `test_retrieval.py` 標記 `@slow`（載入 embedding model），可用 `-m "not slow"` 跳過。
