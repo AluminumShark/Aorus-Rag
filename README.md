@@ -101,15 +101,14 @@ flowchart LR
 
 ## 評測結果
 
-> 以下數據在 Windows 11 + CPU 模式下測得（Intel Core Ultra 9 275HX）。
-
 ### 定量指標
 
-| 指標 | 結果 |
-|------|------|
-| Avg TTFT (首字延遲) | 16.40s |
-| Avg TPS (生成速度) | 8.4 tokens/s |
-| 測試用例數 | 20 |
+| 指標 | CPU (i9-275HX) | GPU (T4, Colab) | GPU 提升 |
+|------|----------------|-----------------|----------|
+| Avg TTFT (首字延遲) | 16.40s | 0.43s | **38x** |
+| Avg TPS (生成速度) | 8.4 tokens/s | 42.7 tokens/s | **5x** |
+| VRAM 用量 | — | 3825 MB | < 4 GB |
+| 測試用例通過率 | 20/20 (100%) | 20/20 (100%) | — |
 
 ### 定性分析
 
@@ -151,11 +150,11 @@ flowchart LR
 - **禁止使用** LangChain / LlamaIndex，全部用純 Python 實作
 - 使用 `llama-cpp-python` 作為推理引擎
 - 使用 `uv` 管理套件環境
-- 跨平台支援：macOS (Metal) / Linux (CUDA) / Windows (CPU)
+- 跨平台支援：macOS (Metal) / Linux (CUDA) / Windows (CPU / CUDA)
 
 ## 已知限制
 
 - 4B 小模型在跨分類推理能力有限
 - 跨語言檢索（中文 query → 英文 chunk）已透過 E5-small 大幅改善，但仍非完美
 - 規格資料量小（19 chunks），Flat index 即可，無需 IVF
-- CPU 模式下 TPS 較低，GPU 可顯著提升
+- GPU（T4）實測 TTFT 0.43s / TPS 42.7，相比 CPU 提升 38x / 5x
