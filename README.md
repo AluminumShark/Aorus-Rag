@@ -60,7 +60,7 @@ flowchart TD
 
 #### 串流輸出（Streaming）
 
-生成階段使用 `create_chat_completion(stream=True)` 逐 token 產出回答，不需等整段生成完畢。`scripts/run.py` 透過 `sys.stdout.write` + `flush` 即時印出每個 token，使用者在 TTFT（~0.43s on T4）後即可看到文字逐字出現，體感接近即時對話。
+生成階段使用 `create_chat_completion(stream=True)` 逐 token 產出回答，不需等整段生成完畢。`scripts/run.py` 透過 `sys.stdout.write` + `flush` 即時印出每個 token，使用者在 TTFT（~0.40s on T4）後即可看到文字逐字出現，體感接近即時對話。
 
 ### Data Pipeline（離線建索引）
 
@@ -109,8 +109,8 @@ flowchart LR
 
 | 指標 | CPU (i9-275HX) | GPU (T4, Colab) | GPU 提升 |
 |------|----------------|-----------------|----------|
-| Avg TTFT (首字延遲) | 16.40s | 0.43s | **38x** |
-| Avg TPS (生成速度) | 8.4 tokens/s | 42.7 tokens/s | **5x** |
+| Avg TTFT (首字延遲) | 16.40s | 0.40s | **41x** |
+| Avg TPS (生成速度) | 8.4 tokens/s | 45.5 tokens/s | **5x** |
 | VRAM 用量 | — | 3825 MB | < 4 GB |
 | 測試用例通過率 | 20/20 (100%) | 20/20 (100%) | — |
 
@@ -161,4 +161,4 @@ flowchart LR
 - 4B 小模型在跨分類推理能力有限
 - 跨語言檢索（中文 query → 英文 chunk）已透過 E5-small 大幅改善，但仍非完美
 - 規格資料量小（19 chunks），Flat index 即可，無需 IVF
-- GPU（T4）實測 TTFT 0.43s / TPS 42.7，相比 CPU 提升 38x / 5x
+- GPU（T4）實測 TTFT 0.40s / TPS 45.5，相比 CPU 提升 41x / 5x
